@@ -18,7 +18,7 @@ locals {
 
 module "secret_variables" {
   source         = "DualbootPartnersLLC/secret-variables-json/aws"
-  version        = "1.0.0"
+  version        = "1.0.1"
   map            = local.secret_app_env_vars
   ssm_key_prefix = local.environment
 }
