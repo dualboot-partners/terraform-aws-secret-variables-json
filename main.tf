@@ -3,5 +3,6 @@ resource "aws_ssm_parameter" "secret_var" {
 
   name        = "/${var.ssm_key_prefix}/${each.key}"
   type        = "SecureString"
+  overwrite   = true
   value       = each.value
 }
