@@ -11,4 +11,5 @@ resource "aws_ssm_parameter" "secret_var" {
   overwrite   = true
   key_id      = aws_kms_key.encryption_key.arn
   value       = each.value
+  tier        = var.ssm_parameter_tier
 }

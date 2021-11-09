@@ -17,10 +17,11 @@ locals {
 }
 
 module "secret_variables" {
-  source         = "DualbootPartnersLLC/secret-variables-json/aws"
-  version        = "1.0.1"
-  map            = local.secret_app_env_vars
-  ssm_key_prefix = local.environment
+  source             = "DualbootPartnersLLC/secret-variables-json/aws"
+  version            = "1.0.4"
+  map                = local.secret_app_env_vars
+  ssm_key_prefix     = local.environment
+  ssm_parameter_tier = "Advanced"
 }
 
 module "app" {
@@ -42,6 +43,7 @@ module "app" {
 |------|-------------|------|---------|:--------:|
 | map | Map of variables. | `map(string)` | n/a | yes |
 | ssm_key_prefix | Prefix for SSM keys. | `string` | n/a | yes |
+| ssm_parameter_tier | Tier of SSM parameters. | `string` | "Standard" | no |
 
 ## Outputs
 
