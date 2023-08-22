@@ -18,7 +18,7 @@ locals {
 
 module "secret_variables" {
   source             = "DualbootPartnersLLC/secret-variables-json/aws"
-  version            = "1.0.4"
+  version            = "2.0.0"
   map                = local.secret_app_env_vars
   ssm_key_prefix     = local.environment
   ssm_parameter_tier = "Advanced"
@@ -26,27 +26,31 @@ module "secret_variables" {
 
 module "app" {
   source = "<path/to/app/module>"
-  secret_env_vars = module.secret_variables.json
+  secret_env_vars = module.secret_variables.ecs_secrets
 }
 
 ```
 
 ## Requirements
 
-| Name | Version |
-|------|---------|
-| terraform | >= 0.12 |
+| Name      | Version |
+|-----------|---------|
+| terraform | \>= 1.0 |
+| aws       | \>= 5.0 |
 
 ## Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| map | Map of variables. | `map(string)` | n/a | yes |
-| ssm_key_prefix | Prefix for SSM keys. | `string` | n/a | yes |
-| ssm_parameter_tier | Tier of SSM parameters. | `string` | "Standard" | no |
+| Name               | Description             | Type          | Default     | Required |
+|--------------------|-------------------------|---------------|-------------|:--------:|
+| map                | Map of variables.       | `map(string)` | n/a         |   yes    |
+| ssm_key_prefix     | Prefix for SSM keys.    | `string`      | n/a         |   yes    |
+| ssm_parameter_tier | Tier of SSM parameters. | `string`      | `Standard`  |    no    |
+| deletion_window    | Deletion window in days | `number`      | `10`        |    no    |
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| json | JSON representation of variables map |
+| Name        | Description                                  |
+|-------------|----------------------------------------------|
+| json        | JSON representation of variables map for ECS |
+| arn_map     | Map {Secret name => Parameter ARN}           |
+| ecs_secrets | Pure-HCL version on `json` output            |

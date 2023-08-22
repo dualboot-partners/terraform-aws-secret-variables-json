@@ -13,3 +13,9 @@ variable "ssm_parameter_tier" {
   description = "Tier of SSM parameters"
   default     = "Standard"
 }
+
+variable "deletion_window" {
+  description = "Deletion window in days"
+  type        = number
+  default     = 10
+}

@@ -1,6 +1,16 @@
+locals {
+  arn_map = { for k in keys(var.map) : k => aws_ssm_parameter.secret_var[k].arn }
+  ecs_secrets = [
+    for k, v in local.arn_map : {
+      name      = k,
+      valueFrom = v,
+    }
+  ]
+}
+
 resource "aws_kms_key" "encryption_key" {
   description             = "This key is used to encrypt SSM '${var.ssm_key_prefix}' parameters"
-  deletion_window_in_days = 10
+  deletion_window_in_days = var.deletion_window
 }
 
 resource "aws_kms_alias" "encryption_key_alias" {
@@ -13,7 +23,6 @@ resource "aws_ssm_parameter" "secret_var" {
 
   name      = "/${var.ssm_key_prefix}/${each.key}"
   type      = "SecureString"
-  overwrite = true
   key_id    = aws_kms_key.encryption_key.arn
   value     = each.value
   tier      = var.ssm_parameter_tier
