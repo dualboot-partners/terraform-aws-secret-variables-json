@@ -35,7 +35,7 @@ module "app" {
 
 | Name      | Version |
 |-----------|---------|
-| terraform | \>= 1.0 |
+| terraform | \>= 1.1 |
 | aws       | \>= 5.0 |
 
 ## Inputs
