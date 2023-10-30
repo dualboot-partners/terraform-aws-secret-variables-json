@@ -19,3 +19,9 @@ variable "deletion_window" {
   type        = number
   default     = 10
 }
+
+variable "create_kms_alias" {
+  description = "Flag for creating KMS Key Alias"
+  type        = bool
+  default     = false
+}
