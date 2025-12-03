@@ -25,3 +25,9 @@ variable "create_kms_alias" {
   type        = bool
   default     = false
 }
+
+variable "enable_key_rotation" {
+  description = "Enable automatic rotation of the KMS key"
+  type        = bool
+  default     = false
+}

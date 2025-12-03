@@ -11,6 +11,7 @@ locals {
 resource "aws_kms_key" "encryption_key" {
   description             = "This key is used to encrypt SSM '${var.ssm_key_prefix}' parameters"
   deletion_window_in_days = var.deletion_window
+  enable_key_rotation     = var.enable_key_rotation
 }
 
 resource "aws_kms_alias" "encryption_key_alias" {
